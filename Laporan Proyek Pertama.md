@@ -1,7 +1,7 @@
 # Laporan Proyek Machine Learning - Rizal Sihombing
 
 ## Domain Proyek
-Titanic adalah bencana kapal pesiar yang pada pelayaran perdananya tenggelam di utara samudera Atlantik pada tanggal 15 April 1912, yang menewaskan 1502 dari 2224 penumpang dan awak kapal. Meskipun ada kesimpulan mengenai penyebab tenggelamnya, analisis data tentang apa saja yang berdampak pada penumpang yang bisa selamat dan bertahan hidup terus berlanjut hingga saat ini. Pendekatan yang dilakukan adalah dengan memanfaatkan kumpulan data umum yang tersedia dari situs web yang dikenal seperti [Kaggle](https://www.kaggle.com/c/titanic/data).
+Tenggelamnya Titanic adalah sebuah bencana kapal pesiar yang terkenal pada pelayaran perdananya. Kapal RMS Titanic yang digadang-gadang "tidak dapat tenggelam", akhirnya tenggelam di bagian utara samudera Atlantik pada tanggal 15 April 1912. Dan menewaskan 1502 dari 2224 penumpang dan awak kapal. Meskipun ada beberapa elemen keberuntungan yang terlibat untuk selamat, tampaknya beberapa kelompok orang lebih mungkin untuk selamat daripada yang lain. Analisis data tentang "orang seperti apa yang lebih mungkin untuk selamat?"  menggunakan data penumpang (yaitu nama, usia, jenis kelamin, kelas tiket, dll). Pendekatan yang dilakukan adalah dengan memanfaatkan kumpulan data umum yang tersedia dari situs web yang dikenal seperti [Kaggle](https://www.kaggle.com/c/titanic/data).
 
 Referensi :
 * http://csis.pace.edu/~ctappert/srd2014/d3.pdf
@@ -12,17 +12,23 @@ Referensi :
 Kumpulan data ini merekam berbagai fitur penumpang di Titanic, termasuk siapa yang selamat dan siapa yang tidak. Disadari bahwa beberapa fitur yang hilang dan tidak berkorelasi mengurangi kinerja prediksi. Untuk analisis data rinci, efek dari fitur telah diselidiki. Jadi beberapa fitur baru ditambahkan ke dataset dan beberapa fitur yang ada dihapus dari kumpulan data.
 
 ### Problem Statements (Pernyataan Masalah)
-Dari serangkaian fitur penumpang yang ada, fitur apa yang paling berpengaruh terhadap keselamatan penumpang kapal Titanic?
+Apakah penumpang kapal Titanic selamat atau tidak? \
+Mengetahui penumpang seperti apa yang lebih mungkin untuk selamat?
 
 ### Goals (Tujuan)
 * Mengetahui fitur yang paling berpengaruh terhadap keselamatan penumpang.
 * Untuk mendapatkan hasil yang dapat mendekati prediksi dari data mentah, dengan menggunakan pembelajaran mesin dan metode rekayasa fitur.
 
 ### Solution statements (Pernyataan Solusi)
-Mengetahui fitur apa saja yang berpengaruh terhadap keselamatan penumpang Titanic dan dapat memprediksi penumpang yang selamat dan tidak selamat. Maka, metodologi pada proyek ini adalah :
-* Membangun model regresi dengan fitur penumpang sebagai target
-* Dan, memprediksi penumpang yang dapat selamat dan tidak selamat dengan klasifikasi
-
+Mengetahui fitur apa saja yang berpengaruh terhadap keselamatan penumpang Titanic dan dapat memprediksi penumpang yang selamat dan tidak selamat. Maka, metodologi pada proyek ini adalah membangun model regresi dengan fitur penumpang sebagai target. Dan, memprediksi penumpang yang dapat selamat dan tidak selamat dengan klasifikasi. Menggunakan :
+1. KNN (K-Nearest Neighbor) \
+Mengklasifikasikan objek baru berdasarkan atribut dan sampel-sampel dari pelatihan data.
+2. Decision Tree \
+Prediksi menggunakan struktur pohon atau struktur berhirarki. Lalu mengeliminasi perhitungan atau data-data yang tidak diperlukan. Sebab, sampel yang ada biasanya hanya diuji berdasarkan kriteria atau kelas tertentu saja.
+3. Random Forest \
+Merupakan salah satu metode dalam Decision Tree, dan kombinasi dari masing-masing tree yang diperlukan kemudian dikombinasikan ke dalam satu model. Random Forest bergantung pada sebuah nilai vector random dengan distribusi yang sama pada semua pohon yang masing-masing decision tree memiliki kedalaman yang maksimal.
+4. Super Vector Machine (Classifier) \
+Algoritma yang bertujuan untuk memaksimalkan margin antara pola pelatihan dan batas kepututsan, dengan sebuah bidang yang mampu memisahkan dua buah kelas.
 
 ## Data Understanding
 Data yang digunakan pada proyek kali ini adalah Titanic dataset, yang dapat diunduh dari [Kaggle](https://www.kaggle.com/c/titanic/data). \
@@ -58,6 +64,8 @@ Pada tahap ini, saya mengembangkan model machine learning dengan empat algoritma
 * Decision Tree
 * Random Forest
 * Super Vector Machine (Classifier)
+
+Fungsi yang digunakan adalah cross-val-score, yaitu salah satu teknik yang digunakan untuk menguji keefektifan model. Model dengan peforma terbaik adalah Super Vector Machine (Classifier), yang memiliki nilai akurasi sebesar 83.5.
 
 
 ## Evaluation
