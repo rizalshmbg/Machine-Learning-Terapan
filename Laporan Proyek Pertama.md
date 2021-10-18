@@ -50,6 +50,59 @@ train.csv berjumlah 891 kolom, sedangkan test.csv 418 kolom
 * Title : pengelompokkan penumpang contohnya apakah penumpang tersebut sudah menikah atau belum. 0 = Mr, 1 = Miss, 2 = Mrs, 3 = Lainnya
 * FamilySize : jumlah dari SibSp ditambah dengan Parch. 1= 0, 2= 0.4, 3= 0.8, 4= 1.2, 5= 1.6, 6= 2, 7= 2.4, 8= 2.8, 9= 3.2, 10= 3.6, 11= 4
 
+Langkah selanjutnya adalah memeriksa tipe data pada setiap variable dengan menggunakna fungsi info(). untuk implementasi code sebagai berikut :
+* data latih
+```python
+train.info()
+```
+Hasil keluaran :
+```python
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+```
+* data test
+```python
+test.info()
+```
+Hasil keluaran :
+```python
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 418 entries, 0 to 417
+Data columns (total 11 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  418 non-null    int64  
+ 1   Pclass       418 non-null    int64  
+ 2   Name         418 non-null    object 
+ 3   Sex          418 non-null    object 
+ 4   Age          332 non-null    float64
+ 5   SibSp        418 non-null    int64  
+ 6   Parch        418 non-null    int64  
+ 7   Ticket       418 non-null    object 
+ 8   Fare         417 non-null    float64
+ 9   Cabin        91 non-null     object 
+ 10  Embarked     418 non-null    object 
+dtypes: float64(2), int64(4), object(5)
+memory usage: 36.0+ KB
+```
+
 
 ## Data Preparation
 Pada tahap ini saya menerapkan proses :
