@@ -19,7 +19,7 @@ Mengetahui penumpang seperti apa yang lebih mungkin untuk selamat?
 * Mengetahui fitur yang paling berpengaruh terhadap keselamatan penumpang.
 * Untuk mendapatkan hasil yang dapat mendekati prediksi dari data mentah, dengan menggunakan pembelajaran mesin dan metode rekayasa fitur.
 
-### Solution statements (Pernyataan Solusi)
+### Solution Statements (Pernyataan Solusi)
 Mengetahui fitur apa saja yang berpengaruh terhadap keselamatan penumpang Titanic dan dapat memprediksi penumpang yang selamat dan tidak selamat. Maka, metodologi pada proyek ini adalah membangun model regresi dengan fitur penumpang sebagai target. Dan, memprediksi penumpang yang dapat selamat dan tidak selamat dengan klasifikasi. Menggunakan :
 1. KNN (K-Nearest Neighbor) \
 Mengklasifikasikan objek baru berdasarkan atribut dan sampel-sampel dari pelatihan data.
@@ -30,28 +30,13 @@ Merupakan salah satu metode dalam Decision Tree, dan kombinasi dari masing-masin
 4. Super Vector Machine (Classifier) \
 Algoritma yang bertujuan untuk memaksimalkan margin antara pola pelatihan dan batas kepututsan, dengan sebuah bidang yang mampu memisahkan dua buah kelas.
 
-## Data Understanding
+## Data Understanding (Pemahaman Data)
 Data yang digunakan pada proyek kali ini adalah Titanic dataset, yang dapat diunduh dari [Kaggle](https://www.kaggle.com/c/titanic/data). \
 train.csv berjumlah 891 kolom, sedangkan test.csv 418 kolom
 
 ### Variabel atau fitur pada Titanic dataset adalah sebagai berikut :
-* PassengerId : Id penumpang
-* Pclass : kelas tiket. 1 = 1st, 2 = 2nd, 3 = 3rd
-* Survived : penumpang yang selamat,0 = Tidak, 1 = Ya
-* Name : nama penumpang
-* Sex : jenis kelamin penumpang. 0 = laki-laki, 1 = perempuan
-* Age : umur penumpang
-* SibSp : Sibling & Spouse yang artinya jumlah saudara kandung atau pasangan yang dibawa oleh penumpang
-* Parch : jumlah keluarga atau anak yang dibawa oleh penumpang
-* Ticket : id atau nomor tiket penumpang
-* Fare : tarif tiket. 0 = kurang dari 17 Poundsterling (UK), 1 = lebih dari 17 Poundsterling (UK), 2 = lebih dari 30 Poundsterling (UK), 3 = lebih dari 100 Poundsterling (UK)
-* Cabin : kategori kabin. A = 0.0, B = 0.4, C = 0.8, D = 1.2, E = 1.6, F = 2.0, G = 2.4, T = 2.8
-* Embarked : dari pelabuhan mana penumpang naik. C = Cherbourg, Q = Queenstown, S = Southampton
-* Title : pengelompokkan penumpang contohnya apakah penumpang tersebut sudah menikah atau belum. 0 = Mr, 1 = Miss, 2 = Mrs, 3 = Lainnya
-* FamilySize : jumlah dari SibSp ditambah dengan Parch. 1= 0, 2= 0.4, 3= 0.8, 4= 1.2, 5= 1.6, 6= 2, 7= 2.4, 8= 2.8, 9= 3.2, 10= 3.6, 11= 4
-
-Langkah selanjutnya adalah memeriksa tipe data pada setiap variable dengan menggunakna fungsi info(). untuk implementasi code sebagai berikut :
-* data latih
+Memeriksa tipe data pada setiap variable dengan menggunakna fungsi info(). Untuk implementasi code sebagai berikut :
+* data latih :
 ```python
 train.info()
 ```
@@ -77,7 +62,7 @@ Data columns (total 12 columns):
 dtypes: float64(2), int64(5), object(5)
 memory usage: 83.7+ KB
 ```
-* data test
+* data tes :
 ```python
 test.info()
 ```
@@ -102,13 +87,27 @@ Data columns (total 11 columns):
 dtypes: float64(2), int64(4), object(5)
 memory usage: 36.0+ KB
 ```
+* PassengerId : Id penumpang
+* Pclass : kelas tiket. 1 = 1st, 2 = 2nd, 3 = 3rd
+* Survived : penumpang yang selamat,0 = Tidak, 1 = Ya
+* Name : nama penumpang
+* Sex : jenis kelamin penumpang. 0 = laki-laki, 1 = perempuan
+* Age : umur penumpang
+* SibSp : Sibling & Spouse yang artinya jumlah saudara kandung atau pasangan yang dibawa oleh penumpang
+* Parch : jumlah keluarga atau anak yang dibawa oleh penumpang
+* Ticket : id atau nomor tiket penumpang
+* Fare : tarif tiket. 0 = kurang dari 17 Poundsterling (UK), 1 = lebih dari 17 Poundsterling (UK), 2 = lebih dari 30 Poundsterling (UK), 3 = lebih dari 100 Poundsterling (UK)
+* Cabin : kategori kabin. A = 0.0, B = 0.4, C = 0.8, D = 1.2, E = 1.6, F = 2.0, G = 2.4, T = 2.8
+* Embarked : dari pelabuhan mana penumpang naik. C = Cherbourg, Q = Queenstown, S = Southampton
+* Title : pengelompokkan penumpang contohnya apakah penumpang tersebut sudah menikah atau belum. 0 = Mr, 1 = Miss, 2 = Mrs, 3 = Lainnya
+* FamilySize : jumlah dari SibSp ditambah dengan Parch. 1= 0, 2= 0.4, 3= 0.8, 4= 1.2, 5= 1.6, 6= 2, 7= 2.4, 8= 2.8, 9= 3.2, 10= 3.6, 11= 4
 
 
 ## Data Preparation
 Pada tahap ini saya menerapkan proses :
-* Data Cleaning, karena ada beberapa kolom yang berisi nilai NaN
-* Data Integration, saya menggabungkan kolom SibSp dengan Parch menjadi NumOfFamily karena dua kolom ini memiliki pemahaman yang sama
-* Data Transformation, saya menggunakan teknik ini pada kolom Name menjadi Title untuk mempermudah pembacaan fitur dan memperoleh data yang lebih berkualitas
+1. Data Cleaning, karena ada beberapa kolom yang berisi nilai NaN
+2. Data Integration, saya menggabungkan kolom SibSp dengan Parch menjadi NumOfFamily karena dua kolom ini memiliki pemahaman yang sama
+3. Data Transformation, saya menggunakan teknik ini pada kolom Name menjadi Title untuk mempermudah pembacaan fitur dan memperoleh data yang lebih berkualitas
 
 
 ## Modeling
@@ -118,20 +117,43 @@ Pada tahap ini, saya mengembangkan model machine learning dengan empat algoritma
 * Random Forest
 * Super Vector Machine (Classifier)
 
-Fungsi yang digunakan adalah cross-val-score, yaitu salah satu teknik yang digunakan untuk menguji keefektifan model. Model dengan peforma terbaik adalah Super Vector Machine (Classifier), yang memiliki nilai akurasi sebesar 83.5.
+Fungsi yang digunakan adalah cross-val-score, yaitu salah satu teknik yang digunakan untuk menguji keefektifan model. Setelah melakukan pemodelan data, didapatkan bahwa pemodelan menggunakan algoritma **Super Vector Machine (Classifier)** mendapatkan hasil rata-rata akurasi tertinggi yaitu = 83.5.
+
+Selanjutnya model dengan algoritma **Super Vector Machine (Classifier)** ini bisa di jadikan model solusi yang akan digunakan.
 
 
 ## Evaluation
-Jika prediksi mendekati nilai sebenarnya, performanya baik. Sedangkan jika tidak, performanya buruk. Di proyek ini saya menggunakan **precision, recall, accuracy, dam F1 score**
-* Precission : mewakili kemampuan model untuk memprediksi positif dengan benar dari semua prediksi positif yang dibuatnya. Skor presisi adalah ukuran yang berguna dari keberhasilan prediksi ketika kelas sangat tidak seimbang. Secara matematis, ini mewakili rasio positif benar dengan jumlah positif benar dan positif palsu.
-  * Formulanya adalah TP/(FP + TP), jadi 256/(58+256) = 0.815
-* Cara mengimplementasikannya adalah dengan method precision_score dari sklearn.metrics
-* Recall : kemampuan model untuk memprediksi dengan benar hal-hal positif dari hal-hal positif yang sebenarnya. Tidak seperti precision sisi yang mengukur berapa banyak prediksi yang dibuat oleh model yang benar-benar positif dari semua prediksi positif yang dibuat.
-  * Formulanya adalah TP/(FN + TP), jadi 256/(86+256) = 0.749
-* Cara mengimplementasikannya adalah dengan method recall_score dari sklearn.metrics
-* Accuracy : kinerja model yang didefinisikan sebagai rasio positif dan negatif sejati untuk semua pengamatan positif dan negatif.
-  * Formulanya adalah (TP + TN)/(TP + FN + TN + FP), jadi (256+491)/(256+86+491+58) = 0.838
-* Cara mengimplementasikannya adalah dengan method accuracy_score dari sklearn.metrics
-* F1 Score : metrik kinerja model yang memberikan bobot yang sama untuk Precision dan Recall untuk mengukur kinerjanya dalam hal akurasi, menjadikannya alternatif untuk metrik akurasi
-  * Formulanya adalah 2 * Precision * Recall / Precision + Recall = 2 * 0.815 * 0.749 / 0.815 + 0.749 = 0.780
-* Cara mengimplementasikannya adalah dengan method f1_score dari sklearn.metrics
+Untuk evaluasi model, disini saya menggunakan matriks **precision**.
+
+Sebelum ke metrik evaluasi, terlebih dahulu kita harus mengerti tentang **Confusion Matrix**.
+Confusion matriks menggambarkan kinerja model klasifikasi pada dataset uji yang nilai sebenarnya diketahui untuk mewakili prediksi. Di dalam confusion matrix, terdapat 4 kesimpulan, diantaranya :
+* True Positive (TP): True positive mewakili nilai prediksi positif yang benar dari kasus positif aktual. 
+* False Positive (FP): False positive mewakili nilai prediksi positif yang salah.
+* True Negative (TN): True negative mewakili nilai prediksi yang benar dari negatif dari kasus negatif yang sebenarnya.
+* False Negative (FN): False negative mewakili nilai prediksi negatif yang salah.
+
+**Precision**
+Precision adalah kemampuan model untuk memprediksi nilai positif dengan benar dari semua prediksi positif yang dibuatnya, dan ukuran yang berguna dari keberhasilan prediksi ketika kelas sangat tidak seimbang.
+
+Formula Precision :
+* TP – True Positives
+* FP – False Positives
+* Precision = TP/(TP + FP)
+
+Untuk menerapkan kode dan hasil dari evaluasi model yang sudah dibuat menjadi seperti ini :
+```python
+print(classification_report(target, target_pred))
+```
+Keluaran :
+```python
+              precision    recall  f1-score   support
+
+           0       0.85      0.89      0.87       549
+           1       0.82      0.75      0.78       342
+
+    accuracy                           0.84       891
+   macro avg       0.83      0.82      0.83       891
+weighted avg       0.84      0.84      0.84       891
+
+```
+Precision terhadap label 0 adalah 85% dan label 1 adalah 82%. Dengan pengertian bahwa **model dapat memprediksi dengan benar terhadap label 0 sebanyak 85%** dan **terhadap label 1 sebanyak 82%.**
