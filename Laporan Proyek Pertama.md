@@ -182,4 +182,4 @@ Keluaran :
 weighted avg       0.84      0.84      0.84       891
 
 ```
-Precision terhadap **label 0 atau penumpang yang tidak selamat adalah 85%** dan **label 1 atau penumpang yang akan selamat adalah 82%**. Dengan pengertian bahwa **model dapat memprediksi dengan benar terhadap label 0 (penumpang yang tidak selamat) sebanyak 85%** dan **terhadap label 1 (penumpang yang akan selamat) sebanyak 82%.**
+Precision terhadap **label 0 atau penumpang yang tidak selamat adalah 85%** dan **label 1 atau penumpang yang akan selamat adalah 82%**. Dengan pengertian bahwa **model dapat memprediksi dengan benar terhadap label 0 (penumpang yang tidak selamat) sebanyak 85%** dan **terhadap label 1 (penumpang yang akan selamat) sebanyak 82%**.
