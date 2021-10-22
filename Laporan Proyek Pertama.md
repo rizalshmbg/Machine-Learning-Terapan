@@ -12,8 +12,7 @@ Referensi :
 Kumpulan data ini merekam berbagai fitur penumpang di Titanic, termasuk siapa yang selamat dan siapa yang tidak. Disadari bahwa beberapa fitur yang hilang dan tidak berkorelasi mengurangi kinerja prediksi. Untuk analisis data rinci, efek dari fitur telah diselidiki. Jadi beberapa fitur baru ditambahkan ke dataset dan beberapa fitur yang ada dihapus dari kumpulan data.
 
 ### Problem Statements (Pernyataan Masalah)
-Apakah penumpang kapal Titanic selamat atau tidak? \
-Mengetahui penumpang seperti apa yang lebih mungkin untuk selamat?
+Bagaimana cara mengetahui penumpang yang akan selamat dari data yang ada?
 
 ### Goals (Tujuan)
 * Mengetahui fitur yang paling berpengaruh terhadap keselamatan penumpang.
@@ -111,15 +110,42 @@ Pada tahap ini saya menerapkan proses :
 
 
 ## Modeling
-Pada tahap ini, saya mengembangkan model machine learning dengan empat algoritma. Kemudian mengevaluasi performa masing-masing algoritma dan menentukan algoritma mana yang memberikan hasil prediksi terbaik.
-* K-Nearest Neighbor
-* Decision Tree
-* Random Forest
-* Super Vector Machine (Classifier)
+Pertama, yaitu melakukan validasi silang menggunakan **Cross Validation (K-Fold)**, yaitu parameter untuk membagi sampel data dalam rangkaian data latih dan data uji. Dengan memisahkan kumpulan data menjadi (k) lipatan berurutan yang jumlah lipatannya 10. Kemudian akan digunakan satu kali sebagai validasi, sedangkan (k-1) lipatan yang tersisa akan membentuk dataset latih.
 
-Fungsi yang digunakan adalah cross-val-score, yaitu salah satu teknik yang digunakan untuk menguji keefektifan model. Setelah melakukan pemodelan data, didapatkan bahwa pemodelan menggunakan algoritma **Super Vector Machine (Classifier)** mendapatkan hasil rata-rata akurasi tertinggi yaitu = 83.5.
+Parameter `shuffle=True` akan mengacak data sebelum dipecah menjadi beberapa kelompok yang mempengaruhi urutan indeks, dan mengontrol keacakan setiap lipatan.
 
-Selanjutnya model dengan algoritma **Super Vector Machine (Classifier)** ini bisa di jadikan model solusi yang akan digunakan.
+Parameter `random_state=0` digunakan untuk menginisialisasi generator nomor acak internal, yang akan memutuskan pemisahan data menjadi data latih dan menguji indeks. Karena disini bernilai 0, maka nilai yang diinisialisasi secara acak akan dikembalikan lagi nilai yang berbeda.
+
+Dilanjutkan dengan menggunakan `cross_val_score`, yaitu metode yang dapat digunakan untuk mengevaluasi kinerja model atau algoritma, dimana data dipisahkan menjadi dua subset yaitu data proses latih dan data validasi.
+
+Parameternya :
+1. `estimator`, yaitu algoritma yang digunakan untuk pemrosesan.
+2. `X`, yaitu variabel input atau fitur yang akan digunakan.
+3. `y`, yaitu variabel tujuan (target) untuk mencoba memprediksi nilai.
+4. `cv`, yaitu metode strategi pemisahan validasi silang.
+5. `n_jobs`, yaitu jumlah pekerjaan untuk dijalankan secara paralel.
+6. `scoring`, fungsi yang dipanggil pencetak skor dengan  estimator, X, y, hanya mengembalikan satu nilai.
+
+Pada tahap ini, saya mengembangkan model machine learning dengan empat algoritma. Kemudian mengevaluasi performa masing-masing algoritma dan menentukan algoritma apa yang memberikan hasil prediksi terbaik.
+* K-Nearest Neighbor \
+Yaitu klasifikasi berbasis tetangga dengan jenis pembelajaran berbasis instansi atau pembelajaran non-generalisasi. K-NN tidak mencoba membangun model internal umum, tetapi hanya menyimpan nilai instansi dari data pelatihan. Dengan nilai tetangga (nilai terdekat) yang akan digunakan sebanyak 13. \
+Menghasilkan skor rata-rata **82.6**
+
+* Decision Tree \
+Yaitu membuat model yang memprediksi nilai variabel target dengan mempelajari aturan keputusan sederhana yang disimpulkan dari fitur data dilihat sebagai pendekatan konstan sepotong demi sepotong. \
+Menghasilkan skor rata-rata **79.46**
+
+* Random Forest \
+Yaitu meta estimator yang cocok dengan sejumlah pengklasifikasi pohon keputusan pada berbagai sub-sampel dari dataset dan menggunakan rata-rata untuk meningkatkan akurasi prediksi dan kontrol over-fitting. Dengan jumlah nilai pohon sebanyak 13. \
+Menghasilkan skor rata-rata **81.71**
+
+* Super Vector Machine (Classifier) \
+Yaitu pemodelan klasifikasi yang memiliki konsep lebih matang dan lebih jelas secara matematis dibandingkan dengan teknik klasifikasi lainnya. Karena algoritma ini efektif dalam ruang dimensi tinggi walaupun jumlah dimensinya lebih besar dari jumlah sampel dan menggunakan subset titik pelatihan dalam fungsi keputusan. \
+Menghasilkan skor rata-rata **83.5**
+
+Setelah melakukan pemodelan data dengan keempat algoritma diatas, didapatkan bahwa pemodelan menggunakan algoritma **Super Vector Machine (Classifier)** mendapatkan hasil rata-rata akurasi tertinggi yaitu = **83.5**.
+
+Model Super Vector Machine (Classifier) ini bisa dijadikan model solusi yang akan digunakan.
 
 
 ## Evaluation
@@ -156,4 +182,4 @@ Keluaran :
 weighted avg       0.84      0.84      0.84       891
 
 ```
-Precision terhadap label 0 adalah 85% dan label 1 adalah 82%. Dengan pengertian bahwa **model dapat memprediksi dengan benar terhadap label 0 sebanyak 85%** dan **terhadap label 1 sebanyak 82%.**
+Precision terhadap **label 0 atau penumpang yang tidak selamat adalah 85%** dan **label 1 atau penumpang yang akan selamat adalah 82%**. Dengan pengertian bahwa **model dapat memprediksi dengan benar terhadap label 0 (penumpang yang tidak selamat) sebanyak 85%** dan **terhadap label 1 (penumpang yang akan selamat) sebanyak 82%.**
