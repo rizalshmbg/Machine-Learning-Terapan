@@ -19,7 +19,7 @@ Bagaimana cara mengetahui penumpang yang akan selamat dari data yang ada?
 * Untuk mendapatkan hasil yang dapat mendekati prediksi dari data mentah, dengan menggunakan pembelajaran mesin dan metode rekayasa fitur.
 
 ### Solution Statements (Pernyataan Solusi)
-Mengetahui fitur apa saja yang berpengaruh terhadap keselamatan penumpang Titanic dan dapat memprediksi penumpang yang selamat dan tidak selamat. Maka, metodologi pada proyek ini adalah membangun model regresi dengan fitur penumpang sebagai target. Dan, memprediksi penumpang yang dapat selamat dan tidak selamat dengan klasifikasi. Menggunakan :
+Mengetahui fitur apa saja yang berpengaruh terhadap keselamatan penumpang Titanic dan dapat memprediksi penumpang yang selamat dan tidak selamat. Maka, metodologi pada proyek ini adalah membangun model regresi dengan fitur _survived_ sebagai target. Dan, memprediksi penumpang yang dapat selamat dan tidak selamat dengan klasifikasi. Menggunakan :
 1. KNN (K-Nearest Neighbor) \
 Mengklasifikasikan objek baru berdasarkan atribut dan sampel-sampel dari pelatihan data.
 2. Decision Tree \
@@ -31,7 +31,7 @@ Algoritma yang bertujuan untuk memaksimalkan margin antara pola pelatihan dan ba
 
 ## Data Understanding (Pemahaman Data)
 Data yang digunakan pada proyek kali ini adalah Titanic dataset, yang dapat diunduh dari [Kaggle](https://www.kaggle.com/c/titanic/data). \
-train.csv berjumlah 891 kolom, sedangkan test.csv 418 kolom
+train.csv berjumlah 891 baris, sedangkan test.csv 418 baris.
 
 ### Variabel atau fitur pada Titanic dataset adalah sebagai berikut :
 Memeriksa tipe data pada setiap variable dengan menggunakna fungsi info(). Untuk implementasi code sebagai berikut :
@@ -107,6 +107,7 @@ Pada tahap ini saya menerapkan proses :
 1. Data Cleaning, karena ada beberapa kolom yang berisi nilai NaN
 2. Data Integration, saya menggabungkan kolom SibSp dengan Parch menjadi NumOfFamily karena dua kolom ini memiliki pemahaman yang sama
 3. Data Transformation, saya menggunakan teknik ini pada kolom Name menjadi Title untuk mempermudah pembacaan fitur dan memperoleh data yang lebih berkualitas
+4. Data Encoding, saya menggunakan teknik data ordinal encoding yaitu setiap nilai kategorik dengan rentang nilai tertentu akan diberi nilai integer
 
 
 ## Modeling
