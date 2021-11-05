@@ -25,11 +25,11 @@ Sistem rekomendasi ini dikembangkan menggunakan algoritma yang dapat menghasilka
 ### Solution approach
 Untuk menyelesaikan masalah ini saya menggunakan dua algoritma sistem rekomendasi sebagai solusi permasalahan yaitu **Content Based Filtering** dan **Collaborative Filtering**.
 
-1. Content Based Filtering \
+1. Content Based Filtering
 Teknik Content Based Filtering akan menyaring buku berdasarkan isi buku yang diminati pembeli. Lalu, setiap pengguna dikaitkan dengan pengklasifikasi sebagai profil. Pengklasifikasi mengambil item buku sebagai inputnya dan kemudian menyimpulkan apakah item tersebut disukai oleh pengguna terkait berdasarkan kontennya. \
 
-2. Collaborative Filtering \
-Pada tahap ini, sistem akan merekomendasikan sejumlah buku berdasarkan rating yang telah diberikan sebelumnya. Dan akan melihat ke set item yang telah dinilai oleh pengguna lalu menghitung seberapa mirip dengan item target. Dari data rating pengguna, akan mengidentifikasi buku apa saja yang mirip dan belum pernah dibeli oleh pengguna untuk direkomendasikan. \
+2. Collaborative Filtering
+Pada tahap ini, sistem akan merekomendasikan sejumlah buku berdasarkan rating yang telah diberikan sebelumnya. Dan akan melihat ke set item yang telah dinilai oleh pengguna lalu menghitung seberapa mirip dengan item target. Dari data rating pengguna, akan mengidentifikasi buku apa saja yang mirip dan belum pernah dibeli oleh pengguna untuk direkomendasikan.
 
 ## Data Understanding
 Dataset yang digunakan adalah [Book Recommendation Dataset](https://www.kaggle.com/arashnic/book-recommendation-dataset). Yang terdiri dari **Books.csv**, **Ratings.csv**.
@@ -106,32 +106,33 @@ Diawal, akan melakukan proses embedding terhadap data user dan buku. Selanjutnya
 
 Berikut adalah hasil modelnya :
 ```{python}
-Menampilkan rekomendasi untuk User: 278137
+Menampilkan rekomendasi untuk User: 278131
 ===========================
 Buku dengan rating tertinggi dari User
 --------------------------------
-The Etruscan Chimera (Archaeological Mystery) : Lyn Hamilton
+Five Quarters of the Orange : Joanne Harris
 --------------------------------
 Top 10 - Rekomendasi Buku untuk User
 --------------------------------
 To Kill a Mockingbird : Harper Lee
-The Bell Jar : A Novel (Perennial Classics) : Sylvia Plath
-La Nuit Des Temps : Rene Barjavel
-Reviving Ophelia: Saving the Selves of Adolescent Girls (Ballantine Reader's Circle) : Mary Pipher
-All Through the Night (Holiday Classics) : Mary Higgins Clark
-Dark Rivers of the Heart : Dean R. Koontz
-Irish Hearts : Nora Roberts
-100 Best-Loved Poems (Dover Thrift Editions) : Philip Smith
-Without Remorse : Tom Clancy
-Bitter Harvest : Ann Rule
+Life of Pi : Yann Martel
+Lord of the Flies : William Gerald Golding
+The King of Torts : JOHN GRISHAM
+Politically Correct Bedtime Stories: Modern Tales for Our Life and Times : James Finn Garner
+The Door into Summer : Robert A. Heinlein
+Die zweite Haut. : Dean Koontz
+I Am Legend : Richard Matheson
+The Watsons Go to Birmingham - 1963 (Yearling Newbery) : CHRISTOPHER PAUL CURTIS
+Last Man Standing : David Baldacci
 ```
 Dapat dilihat model memberikan hasil buku dengan rating tertinggi dari penilaian user yaitu **The Etruscan Chimera (Archaeological Mystery)**, dan model juga memberikan rekomendasi 10 buku lainnya. 
 
 ## Evaluation
-1. **Content Based Filtering**
-Mengevaluasi metrik akurasi, dimana akurasi disini adalah : Buku yang direkomendasikan sesuai dengan penulis buku / jumlah buku yang direkomendasikan.
-
-Pertama adalah dengan membuat variabel books_that_have_been_read_row yang akan mengambil satu row dari buku yang pernah dibaca sebelumnya, dan juga membuat variabel books_that_have_been_read_author adalah penulis buku dari buku yang pernah dibaca sebelumnya. Saya juga membuat variabel readed_book_new yang merupakan merupakan buku yang pernah dibaca sebelumnya, dan variabel readed_book_author adalah buku dengan penulis dari buku yang pernah dibaca sebelumnya. Kemudian membuat looping yang merupakan proses manual di mana setiap penulis dari buku yang direkomendasikan akan dicek, apabila sama maka variabel real_author akan bertambah 1. Di bawah ini adalah hasil akurasi dari model sistem rekomendasi yang telah dibuat, dimana jumlah buku yang direkomendasikan sesuai dengan penulis buku atau variabel real_author / jumlah buku yang direkomendasikan sebanyak 5.
+1. **Content-Based Filtering**
+Mengevaluasi metrik akurasi, dimana akurasi disini adalah. Buku yang direkomendasikan sesuai dengan penulis buku / jumlah buku yang direkomendasikan.
+ * Pertama adalah dengan membuat variabel readed_book_new merupakan buku yang pernah dibaca sebelumnya. Dan variabel readed_book_author adalah buku dengan penulis dari buku yang pernah dibaca sebelumnya.
+ * Kedua, membuat sebuah looping yang merupakan proses manual di mana setiap penulis dari buku yang direkomendasikan akan dicek. Apabila sama maka variabel real_author akan bertambah 1.
+ * Lalu hasilnya dapat dilihat dengan kode di bawah ini. Yang merupakan hasil akurasi dari model sistem rekomendasi yang telah dibuat, dimana jumlah buku yang direkomendasikan sesuai dengan penulis buku atau variabel real_author / jumlah buku yang direkomendasikan sebanyak 5 buku.
 ```{python}
 acc = real_author / 5*100
 print("Akurasi dari model ini adalah {}%".format(acc))
@@ -142,17 +143,18 @@ Akurasi dari model ini adalah 100.0%
 ```
 
 2. **Collaborative Filtering**
-Evaluasi metrik yang digunakan adalah RMSE.
+Evaluasi metrik yang digunakan adalah RMSE (root-mean-square error).
 
-![image](https://user-images.githubusercontent.com/66808677/140037703-738033c1-5973-44bb-9835-be4be53e18f0.png)
+![image](https://user-images.githubusercontent.com/66808677/140503396-2febd461-2449-4cd3-9d1f-521f767ec6ae.png)
 
-Adalah hasil dari akar kuadrat Mean Square Error. Keakuratan metode estimasi kesalahan pengukuran ditandai dengan adanya nilai RMSE yang kecil. Metode estimasi yang mempunyai Root Mean Square Error (RMSE) lebih kecil dikatakan lebih akurat daripada metode estimasi yang mempunyai Root Mean Square Error (RMSE) lebih besar. Berikut adalah rumus nya :
-* At = Nilai data Aktual
+
+Adalah ukuran yang sering digunakan untuk perbandingan antara nilai yang diprediksi oleh model dan nilai yang diamati. Keakuratan metode estimasi kesalahan (error) pengukuran ditandai dengan adanya nilai RMSE yang kecil. Metode estimasi yang mempunyai Root Mean Square Error (RMSE) lebih kecil dikatakan lebih akurat daripada metode estimasi yang mempunyai Root Mean Square Error (RMSE) lebih besar. Berikut adalah rumus nya :
+* At = Nilai data aktual
 * Ft = Nilai hasil prediksi
 * N = Banyaknya data
-* ∑ = Summation (Jumlahkan keseluruhan nilai)
+* ∑ = Summation (Jumlahkan keseluruhan  nilai)
 
-RMSE di-definisikan pada bagian metriks dalam model, kemudian kita di-visualisasikan lewat grafik
+RMSE di-definisikan pada bagian metriks dalam model, kemudian di-visualisasikan lewat grafik :
 ```python
 plt.plot(history.history['root_mean_squared_error'])
 plt.plot(history.history['val_root_mean_squared_error'])
